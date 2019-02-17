@@ -43,6 +43,15 @@
     		<if test="questionnaireId!=null">
     			questionnaire_id = #{questionnaireId}
     		</if>
+    		<if test="submitStart!=null">
+    			and submit_time > #{submitStart}
+    		</if>
+    		<if test="submitEnd">
+    			and #{submitEnd} > submit_time
+    		</if>
+    		<if test="cooperationId!=null">
+    			and from_id=#{cooperationId}
+    		</if>
     	</where>
     </select>
     

@@ -56,6 +56,8 @@
                                         <a href="${ctx}/mvc/question/manage?questionnaireId=${q.id}">题目</a>
                                         &nbsp;&nbsp;
                                         <a href="${ctx}/mvc/evaluate/manage?questionnaireId=${q.id}">评估</a>
+                                        &nbsp;&nbsp;
+                                        <a href="${ctx}/mvc/qrcode/create?questionnaireId=${q.id}">合作二维码</a>
                                     </td>
                                 </tr>
                             </c:forEach>

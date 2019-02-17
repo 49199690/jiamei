@@ -26,7 +26,7 @@ import cn.nongph.jiamei.mobile.wechat.WechatOAuthHandler;
  * 错误吗分配03xx
  */
 @Controller
-@RequestMapping("/open/api/wechat/authorize")
+@RequestMapping("/open/wechat/authorize")
 public class WeChatAuthorizeController {
 	
 	@Resource
@@ -39,7 +39,7 @@ public class WeChatAuthorizeController {
 	@RequestMapping("/base/url")
 	public UniversalResult requestBaseAuthorize(HttpServletRequest request, @RequestHeader("user-agent") String ua, @RequestParam("au") String afterUrl ) throws Exception{
 		if( ua.toLowerCase().contains("micromessenger") ) {//微信浏览器
-	        String redirectUri = "http://"+request.getServerName()+"/mvc/open/api/wechat/authorize/base/callback";
+	        String redirectUri = "http://"+request.getServerName()+"/mvc/open/wechat/authorize/base/callback";
 	        if( StringUtils.isNotEmpty(afterUrl) )
 	        	redirectUri = redirectUri + "?au=" + afterUrl;
 	  
@@ -63,7 +63,7 @@ public class WeChatAuthorizeController {
 	@RequestMapping("/info/url")
 	public UniversalResult requestInfoAuthorize(HttpServletRequest request, @RequestHeader("user-agent") String ua, @RequestParam("au") String afterUrl ) throws Exception{
 		if( ua.toLowerCase().contains("micromessenger") ) {//微信浏览器
-	        String redirectUri = "http://"+request.getServerName()+"/mvc/open/api/wechat/authorize/info/callback";
+	        String redirectUri = "http://"+request.getServerName()+"/mvc/open/wechat/authorize/info/callback";
 	        if( StringUtils.isNotEmpty(afterUrl) )
 	        	redirectUri = redirectUri + "?au=" + afterUrl;
 	  

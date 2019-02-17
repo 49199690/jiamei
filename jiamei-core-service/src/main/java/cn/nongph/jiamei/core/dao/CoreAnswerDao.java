@@ -1,5 +1,6 @@
 package cn.nongph.jiamei.core.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -26,5 +27,7 @@ public interface CoreAnswerDao {
 	
 	List<CoreQuestionAnswer> getQuestionAnswersByAnswer(Long id);
 	
-	public PageList<CoreAnswer> findAnswers(PageBounds pageBounds, @Param("questionnaireId")Long questionnaireId);
+	public PageList<CoreAnswer> findAnswers(PageBounds pageBounds, @Param("questionnaireId")Long questionnaireId,
+											@Param("submitStart")Date submitStart, @Param("submitEnd")Date submitEnd, 
+											@Param("cooperationId")Long cooperationId);
 }

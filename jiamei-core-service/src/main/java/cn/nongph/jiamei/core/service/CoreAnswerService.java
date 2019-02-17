@@ -1,5 +1,6 @@
 package cn.nongph.jiamei.core.service;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -41,8 +42,9 @@ public class CoreAnswerService {
 		return dao.getQuestionAnswersByAnswer(id);
 	}
 	
-	public PageList<CoreAnswer> findAnswers(PageBounds pageBounds, Long questionnaireId){
-		return dao.findAnswers(pageBounds, questionnaireId);
+	public PageList<CoreAnswer> findAnswers(PageBounds pageBounds, Long questionnaireId, 
+			                                Date submitStart, Date submitEnd, Long cooperationId){
+		return dao.findAnswers(pageBounds, questionnaireId, submitStart, submitEnd, cooperationId);
 	}
 	
 	public static CoreAnswerService instance;

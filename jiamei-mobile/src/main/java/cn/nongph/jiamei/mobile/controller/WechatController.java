@@ -16,11 +16,11 @@ import cn.nongph.jiamei.mobile.wechat.WechatApiHandler;
 
 /**
  * @author felix.wu
- * 错误吗分配06xx:
+ * error code 06xx:
  * 0601非法访问
  */
 @Controller
-@RequestMapping("/open/api/wechat")
+@RequestMapping("/open/wechat")
 public class WechatController {
 	
 	@Resource

@@ -66,6 +66,6 @@ public class AESHandler {
     }
     
     public static void main(String[] args) {
-    	System.out.println( encrypt("ba3d97443544cbbe5baed6f955f991fa") );
+    	System.out.println( encrypt("fb8b9dfa56fd18b167352bff0df6ef40") );
     }
 }

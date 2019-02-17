@@ -50,11 +50,9 @@ var nph = new function(){
             $('.weui_dialog_alert .weui_dialog_title').text(title);
             $('.weui_dialog_alert .weui_dialog_bd').text(content);
         }
-      //$('.weui_dialog_alert').fadeIn();
         $('.weui_dialog_alert').css("display", "block");
 
         $('.weui_dialog_alert .primary').on("click", function() {
-            //$('.weui_dialog_alert').fadeOut();
             $('.weui_dialog_alert').css("display", "none");
             if( cb )
             	cb();
@@ -92,7 +90,7 @@ var nph = new function(){
             })
         };
     this.getWechatUserInfo = function(toUrl){
-    	$.getJSON("/mvc/open/api/wechat/authorize/info/url?au="+encodeURIComponent(toUrl), function(data){
+    	$.getJSON("/mvc/open/wechat/authorize/info/url?au="+encodeURIComponent(toUrl), function(data){
     		if( data.head.state=='success' ) {
     			location.href = data.body;
     		} else {
@@ -469,6 +467,7 @@ $(function(){
 	if( aid ) {
 		sessionStorage.setItem( "aid", aid );
 	}
+	/*
     if(nph.isWechatBrowser()){
     	if( $.cookie("wid") ) {
     		var winfo = nph.ss.getItem($.cookie("wid"));
@@ -478,7 +477,7 @@ $(function(){
 					$('.nph-qrcodebg').css('display', 'block');
     			}
     		}else{
-    			$.getJSON("/mvc/open/api/wechat/user/isSubscribe", function(data){
+    			$.getJSON("/mvc/open/wechat/user/isSubscribe", function(data){
         			if(data.head.state=='success'){
         				nph.ss.setItem($.cookie("wid"), {"isSubscribe":data.body});
         				if(!data.body){
@@ -494,4 +493,5 @@ $(function(){
     		nph.getWechatUserInfo(location.href);
     	}
     }
+    */
 });

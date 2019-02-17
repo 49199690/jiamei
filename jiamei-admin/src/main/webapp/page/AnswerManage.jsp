@@ -19,8 +19,22 @@
 				</ol>
             </header>
             <form id="searchForm" action="${ctx}/mvc/answer/manage" method="post">
+            	<input type="hidden" name="page" value="1"/>
             	<div class="input-group" style="margin-bottom: 5px;">
-					<input id="search" class="form-control" name="nameOrPhone" type="text" placeholder="时间，合作渠道" value="${param['nameOrPhone']}"/>
+            		<div class="input-group date" style="width:30%;float: left;">
+                    	<input type="text" class="form-control" name="startTime" placeholder="开始时间" value="${param['startTime']}"/>
+                    	<span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                    </div>
+					<div class="input-group date" style="width:30%;float: left;">
+                    	<input type="text" class="form-control" name="endTime"   placeholder="结束时间" value="${param['endTime']}"/>
+                    	<span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                    </div>
+                    <select name="cooperation" class="form-control" style="width:40%;float: left;">
+						<option></option>
+						<c:forEach items="${cooperations}" var="coop">
+							<option value="${coop.id}"  <c:if test="${param['cooperation']==coop.id}">selected</c:if>>${coop.name}</option>
+					    </c:forEach>
+					</select>
 					<span class="input-group-btn">
 						<button class="btn btn-default" type="submit">搜索</button>
 					</span>
@@ -45,7 +59,7 @@
 	                        <c:forEach items="${answers}" var="answer">
 	                            <tr>
 	                            	<td>${answer.fromDesc}</td>
-	                            	<td>${DateUtils.formatDate(answer.submitTime)}</td>
+	                            	<td>${DateUtils.formateDateTime(answer.submitTime)}</td>
 	                            	<td>${answer.user.phone}</td>
 	                                <td>${answer.questionnaire.name}</td>
 	                                <td>${answer.score}</td>
@@ -67,8 +81,16 @@
 <footer>
 	<%@include file="layout/footer.jsp" %>
 <script type="text/javascript">
+$('.date').datetimepicker({
+    format: "yyyy-mm-dd hh:mm",
+    autoclose: true,
+    todayBtn: true,
+    pickerPosition: "bottom-left"
+}); 
+
 function resubmitSearch(page){
-	location.href = "${ctx}/mvc/answer/manage?nameOrPhone=${param['nameOrPhone']}&page=" + page;
+	$("input[name=page]").attr("value",page);
+	$("#searchForm").submit();
 }
 </script>
 </footer>
