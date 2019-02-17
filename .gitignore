@@ -1,0 +1,24 @@
+*.class
+
+# Package Files #
+*.war
+*.ear
+
+# IDEA Releated
+*.iml
+.idea/
+.idea/
+target/
+.setting/
+
+.classpath
+.project
+.settings/
+
+*/.settings/
+*/target/
+*/.calsspath
+*/.project
+
+logs/
+

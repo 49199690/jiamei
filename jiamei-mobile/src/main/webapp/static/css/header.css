@@ -1,0 +1,51 @@
+/*normal bar*/
+header {
+    margin: 0 auto;
+    font-family: "Microsoft YaHei", Arial, Helvetica, sans-serif;
+    width: 100%;
+}
+
+header .normal_bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 99;
+    background-color: #b6c546;
+    height: 50px;
+    line-height: 50px;
+    width: 100%;
+    text-align: center;
+    display: table;
+}
+
+header .normal_bar .bar_left {
+    position: absolute;
+    left: 0;
+    width: 65px;
+    height: 100%;
+    display: inline-block;
+    background: url("../img/back.png") no-repeat center;
+    background-size: 24px;
+    vertical-align: middle;
+}
+
+header .normal_bar .title {
+    font-family: "Î¢ÈíÑÅºÚ", "Microsoft YaHei", serif;
+    font-weight: normal;
+    font-size: 18px;
+    color: #FFF;
+    text-align: center;
+    margin: 0 0;
+    vertical-align: middle;
+}
+
+header .normal_bar .bar_right {
+    position: absolute;
+    right: 0;
+    width: 65px;
+    height: 100%;
+    display: inline-block;
+    background: url("../img/home.png") no-repeat center;
+    background-size: 24px;
+    vertical-align: middle;
+}

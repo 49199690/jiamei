@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<title>我的</title>
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<meta http-equiv="x-dns-prefetch-control" content="on">
+		<link rel="stylesheet" href="static/css/bootstrap.min.css" type="text/css"/>
+		<link rel="stylesheet" href="static/css/weui.css">
+		<link rel="stylesheet" href="static/css/header.css?V20180312">
+		<link rel="stylesheet" href="static/css/footer.css?V20180312">
+		<style type="text/css">
+		.pay_wayIcon {
+			width: 40px;
+			height: 40px;
+			float: left;
+			margin-right: 10px;
+		}
+		</style>
+		<script src="static/js/jquery2/jquery-2.1.4.min.js" type="text/javascript"></script>
+		<script src="static/js/jquery.cookie.min.js" type="text/javascript"></script>
+		<script src="static/js/nph.js?V20180927" type="text/javascript"></script>
+		<script src="static/js/profile.js?V20190123" type="text/javascript"></script>
+	</head>
+	<body>
+	<header>
+	    <div class="normal_bar">
+	        <a class="bar_left" href="javascript:history.back();"></a>
+	        <span class="title">我的</span>
+	        <a id="homePageId" class="bar_right" href="/"></a>
+	    </div>
+	</header>
+	<div style="margin-top: 60px;">
+		<div class="panel panel-default" style="margin-left:5px;margin-top:5px;margin-right:5px;">
+			<div class="panel-heading">基本信息</div>
+			<div class="panel-body" id="baseInfo"></div>
+		</div>
+		<div id="activeOrders">
+		</div>
+	</div>
+	<footer style="z-index: 1000;">
+		<ul class="bottom_nav">
+			<li>
+				<a href="/"> 
+					<img src="static/img/home_off.png">
+					<span>自我测评</span>
+				</a>
+			</li>
+			<li>
+				<a href="/profile.html?V20180312">
+					<img src="static/img/personalcenter_on.png" alt="">
+					<span style="color:#EF9C24;">我的</span>
+				</a>
+			</li>
+		</ul>
+	</footer>
+</body>
+</html>

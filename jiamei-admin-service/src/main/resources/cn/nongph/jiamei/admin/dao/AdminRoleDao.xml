@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.nongph.jiamei.admin.dao.AdminRoleDao">
+
+    <resultMap id="roleResultMap" type="cn.nongph.jiamei.admin.domain.AdminRole">
+    </resultMap>
+
+    <select id="getRolesByUser" resultMap="roleResultMap">
+        select admin_role.* 
+        from admin_user_role left join admin_role on admin_user_role.role_id = admin_role.id
+        where admin_user_role.user_id = #{userid}
+    </select>
+
+    <select id="findAllRoles" resultMap="roleResultMap">
+        select * from admin_role;
+    </select>
+</mapper>

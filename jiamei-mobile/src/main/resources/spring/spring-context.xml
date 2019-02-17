@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.0.xsd">
+
+    <context:component-scan base-package="cn.nongph.jiamei">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="url">
+			<value>${jdbc.url}</value>
+		</property>
+        <property name="driverClassName">
+			<value>${jdbc.driver}</value>
+		</property>
+		<property name="username">
+			<value>#{systemProperties['jdbc.username']}</value>
+		</property>
+		<property name="password">
+			<value>#{systemProperties['jdbc.password']}</value>
+		</property>
+		<property name="maxActive">
+			<value>${jdbc.pool.maxActive}</value>
+		</property>
+		<property name="minIdle">
+			<value>${jdbc.pool.minIdle}</value>
+		</property>
+		<property name="maxIdle">
+			<value>${jdbc.pool.maxIdle}</value>
+		</property>
+		<property name="initialSize">
+			<value>${jdbc.pool.initialSize}</value>
+		</property>
+		<property name="maxWait">
+			<value>${jdbc.pool.maxWait}</value>
+		</property>
+		<property name="testOnBorrow">
+			<value>${jdbc.pool.testOnBorrow}</value>
+		</property>
+		<property name="validationQuery">
+			<value>${jdbc.pool.validationQuery}</value>
+		</property>
+		<property name="validationQueryTimeout">
+			<value>${jdbc.pool.validationQueryTimeout}</value>
+		</property>
+    </bean>
+    
+    <bean id="sessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="configLocation" value="classpath:mybatis/mybatis-conf.xml"/>
+        <property name="typeAliasesPackage" value="cn.nongph.jiamei.core.domain"/>
+        <property name="mapperLocations" value="classpath*:cn/nongph/jiamei/**/dao/*Dao.xml"/>
+    </bean>
+
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="cn.nongph.jiamei.*.dao"/>
+    </bean>
+    
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!-- 配置 Annotation 驱动，扫描@Transactional注解的类定义事务  -->
+    <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
+
+    <!-- 配置 JSR303 Bean Validator 定义-->
+    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
+	 
+</beans>

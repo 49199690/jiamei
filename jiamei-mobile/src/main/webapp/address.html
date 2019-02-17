@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<title>添加/修改地址</title>
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<meta http-equiv="x-dns-prefetch-control" content="on">
+		<link rel="stylesheet" href="static/css/header.css">
+		<link rel="stylesheet" href="static/css/footer.css">
+		<style type="text/css">
+		.add_container {
+            width: 100%;
+            margin: 60px auto;
+            overflow: hidden;
+        }
+        .add_list {
+            width: 85%;
+            margin: 5% auto;
+            overflow: hidden;
+        }
+        .add_list li {
+            width: 100%;
+            margin-bottom:10px;
+        }
+        .add_list li > p {
+            font-family: 'microsoft Yahei';
+            font-size: 15px;
+            padding: 3px 0;
+            color: #666;
+        }
+        .add_list li > input {
+            width: 99%;
+            height: 35px;
+            border: 1px solid #ef9c24;
+            font-size: 15px;
+            font-family: 'microsoft Yahei';
+            color: #333;
+            border-radius: 5px;
+            line-height: 35px;
+            text-indent: 10px;
+            -webkit-appearance: none;
+        }
+        .add_list li > input::-webkit-input-placeholder {
+            color: #aaa;
+        }
+        .add_btn {
+            width: 85%;
+            margin: 5% auto;
+            overflow: hidden;
+        }
+        .add_btn a {
+            display: inline-block;
+            width: 100%;
+            height: 40px;
+            margin-top: 10px;
+            background: #EF9C24;
+            border-radius: 5px;
+            color: #fff;
+            text-decoration: none;
+            text-align: center;
+            line-height: 40px;
+            font-family: 'microsoft Yahei';
+            font-weight: 500;
+            font-size: 18px;
+        }
+		</style>
+		<script src="static/js/jquery2/jquery-2.1.4.min.js" type="text/javascript"></script>
+		<script src="static/js/jquery.cookie.min.js" type="text/javascript"></script>
+		<script src="static/js/nph.js?2" type="text/javascript"></script>
+		<script src="static/js/address.js?1" type="text/javascript"></script>
+	</head>
+	<body>
+	<header>
+	    <div class="normal_bar">
+	        <a class="bar_left" href="javascript:history.back();"></a>
+	        <span class="title">添加/修改配送地址</span>
+	        <a id="homePageId" class="bar_right" href="/"></a>
+	    </div>
+	</header>
+	<div class="add_container">
+        <ul class="add_list">
+            <li>
+                <p><font color="red">*</font>收货人:<span id="receiverHit" style="display: none;"><font color="red">请输入收货人</font></span></p>
+                <input maxlength="20" type="text" placeholder="请输入您的姓名" id="receiver" name="receiver" value="">
+            </li>
+            <li>
+                <p><font color="red">*</font>手机号 :<span id="phoneHit" style="display: none;"><font color="red">请输入手机号</font></span></p>
+                <input type="tel" maxlength="11" id="phone" name="phone" placeholder="请输入您的手机号码" value="">
+            </li>
+            <li>
+                <p><font color="red">*</font>社区(小区):<span id="communityHit" style="display: none;"><font color="red">请输入社区</font></span></p>
+                <input maxlength="20" type="text" placeholder="填写如:凤凰城" id="community" name="community" value="">
+            </li>
+            <li>
+                <p><font color="red">*</font>地址(幢#门牌号)：<span id="detailHit" style="display: none;"><font color="red">请输入具体地址</font></span></p>
+                <input type="text" maxlength="20" id="detail" name="detail" placeholder="填写如:18-103" value="">
+            </li>
+        </ul>
+        <div class="add_btn">
+            <div>
+                <a type="button" class="new-abtn-type mgn" style="border:0px;font-weight: bold;border-radius: 5px;margin-top:15px;" id="submitBtn">保存地址</a>
+            </div>
+        </div>
+    </div>
+	<footer style="z-index: 1000;">
+		<ul class="bottom_nav">
+			<li>
+				<a href="/"> 
+					<img src="static/img/home_off.png">
+					<span>在售</span>
+				</a>
+			</li>
+			<li>
+				<a href="/cart.html?20180312">
+					<img src="static/img/cart_off.png" alt="">
+					<span>购物车</span>
+				</a>
+			</li>
+			<li>
+				<a href="/profile.html">
+					<img src="static/img/personalcenter_on.png" alt="">
+					<span>我的</span>
+				</a>
+			</li>
+		</ul>
+	</footer>
+</body>
+</html>

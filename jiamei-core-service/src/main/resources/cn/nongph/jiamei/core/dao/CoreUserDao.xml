@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.nongph.jiamei.core.dao.CoreUserDao">
+
+    <resultMap id="userResultMap" type="cn.nongph.jiamei.core.domain.CoreUser">
+    	<id column="id" property="id"/>
+    	<result column="name" property="name"/>
+    	<result column="phone" property="phone"/>
+    	<result column="wechat_id" property="wechatId"/>
+    	<result column="wechat_name" property="wechatName"/>
+    	<result column="wechat_avatar" property="wechatAvatar"/>
+    	<result column="from_type" property="fromType"/>
+    	<result column="from_id" property="fromId"/>
+    	<result column="pid" property="pid"/>
+    	<result column="create_time" property="createTime"/>
+    </resultMap>
+    
+    <select id="getUserById" resultMap="userResultMap">
+        select * from user where id=#{id}
+    </select>
+    
+    <select id="getUserByPid" resultMap="userResultMap">
+        select *
+        from user
+        where pid=#{pid}
+    </select>
+    
+    <select id="getUserByWid" resultMap="userResultMap">
+        select *
+        from user
+        where wechat_id=#{wid}
+    </select>
+
+    <select id="findAllUsers" resultMap="userResultMap">
+    	select * from user;
+    </select>
+    
+    <select id="findUsers" resultMap="userResultMap">
+    	select * from user
+    	<where>
+    		<if test="key!=null">
+              name like '%${key}%' or phone like '%${key}%' or wechat_name like '%${key}%'
+            </if>
+    	</where>  
+    </select>
+    
+    <select id="findUserByPhone" resultMap="userResultMap">
+        select *
+        from user
+        where phone=#{phone}
+    </select>
+    
+    <insert id="insertUser" parameterType="cn.nongph.jiamei.core.domain.CoreUser" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
+    	insert into user(name, phone, wechat_id, wechat_name, wechat_avatar, from_type, from_id, pid, create_time) 
+    	values( #{name}, #{phone}, #{wechatId}, #{wechatName}, #{wechatAvatar}, #{fromType}, #{fromId}, #{pid}, #{createTime})
+    </insert>
+    
+    <update id="updateUser" parameterType="cn.nongph.jiamei.core.domain.CoreUser">
+    	update user
+    	set name=#{name}, 
+    	    phone=#{phone}, 
+    	    wechat_id=#{wechatId},
+    	    wechat_name=#{wechatName}, 
+    	    wechat_avatar = #{wechatAvatar},
+    	    pid=#{pid},
+    	    from_type=#{fromType},
+    	    from_id=#{fromId}
+    	where id=#{id}
+    </update>
+
+</mapper>

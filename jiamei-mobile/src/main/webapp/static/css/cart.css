@@ -1,0 +1,252 @@
+*{
+	margin:0;
+	padding:0;
+	list-style: none;
+}
+.cart_container{
+	width: 100%;
+	overflow: hidden;
+	margin:65px 0 55px 0;
+}
+.cart_list{
+	width: 100%;
+	overflow: hidden;
+	padding-bottom: 1px;
+}
+.cart_list li{
+	width: 100%;
+	height: 90px;
+	border-bottom: 1px solid #ddd;
+}
+/*左边图片展示*/
+.cart_listLeft{
+	height: 100%;
+	overflow: hidden;
+	float: left;
+	margin-right: 5px;
+}
+.cart_listLeft img{
+	display: block;
+	float: left;
+	width: 60px;
+	margin-top: 10px;
+	border:1px solid #ddd;
+}
+/*右边部分的外部DIV*/
+.cart_listRightw{
+	height: 100%;
+	overflow: hidden;
+}
+/*中间文字*/
+.cart_listMiddle{
+	height:100%;
+	overflow: hidden;
+	float: left;
+	padding:0 5px;
+	max-width: 60%;
+	text-decoration: none;
+}
+.cart_listMiddle p{
+	display: block;
+	font-family: 'microsoft Yahei';
+	font-size: 13px;
+	color: #424242;
+	margin-top:10px;
+	white-space:nowrap;
+	overflow:hidden;
+	text-overflow:ellipsis;
+}
+.cart_listMiddle span{
+	font-family: 'microsoft Yahei';
+	font-size: 12px;
+	color: #bbb;
+}
+/*中间商品数量*/
+.cart_num{
+	width: 84px;
+	height: 22px;
+	margin-top: 5px;
+}
+.cart_num input{
+	width: 28px;
+	height: 20px;
+	float: left;
+	margin:0 5px;
+	border-radius: 2px;
+	border:0px solid #ddd;
+	text-align: center;
+	-webkit-appearance:none;
+}
+.cart_num a{
+	display: block;
+	height: 20px;
+	width: 20px;
+	border-radius: 20px;
+	float: left;
+
+}
+.cart_numlast{
+	background: url('../img/decrease.png') no-repeat;
+	background-size: 20px;
+}
+.cart_numadd{
+	background: url('../img/increase.png') no-repeat;
+	background-size: 20px;
+}
+/*右边价格*/
+.cart_listRight{
+	height: 100%;
+	overflow: hidden;
+	text-align: right;
+	margin-right: 8%;
+}
+.cart_listRight p{
+	position: relative;
+	display: block;
+	overflow: hidden;
+	margin-top: 11px;
+}
+.cart_listRight p img{
+	position: absolute;
+	bottom:2px;
+	left: 0;
+	display: block;
+	float: left;
+	width: 10px;
+	height: 10px;
+}
+.cart_yuan{
+	color: #888;
+}
+.cart_item_price{
+	color: #EF9C24;
+	font-size: 17px;
+}
+.cart_delete{
+	margin-top: 22px;
+	display: inline-block;
+	width: 22px;
+	height: 22px;
+	border-radius: 20px;
+	background: url('../img/collect_delete.png') no-repeat;
+	background-size: 100%;
+}
+/*加入购物车按钮*/
+.cart_addCart{
+	position: fixed;
+	width: 100%;
+	height: 45px;
+	bottom: 50px;
+	padding: 10px 0;
+	background: #fff;
+}
+.cart_addCart a{
+	display: block;
+	width: 90%;
+	height: 40px;
+	margin:0 auto;
+	background: #EF9C24;
+	font-size: 16px;
+	font-family: 'microsoft Yahei';
+	font-weight: 600;
+	color: #fff;
+	text-decoration: none;
+	text-align: center;
+	line-height: 40px;
+	border-radius: 5px;
+}
+/*底部*/
+.cart_footer{
+	position: fixed;
+	bottom: 0;
+	/*left: 0;*/
+	width: 100%;
+	height: 65px;
+	background:#F5F4F9;
+	color:grey;
+	font-family: 'microsoft Yahei';
+	max-width: 640px;
+	margin: auto;
+}
+.cart_footer div{
+	float: left;
+	width: 70%;
+	padding-top: 8px;
+	padding-bottom: 10px;
+}
+.cart_listMiddle>a{
+	display: block;
+	font-family: 'microsoft Yahei';
+	font-size: 13px;
+	color: #424242;
+	margin-top:10px;
+	line-height: 20px;
+	height: 40px;
+	overflow: hidden;
+	text-align: justify;
+	text-decoration: none;
+}
+@media screen and (min-width: 375px){
+	.cart_footer div{
+		padding-top: 8px;
+		padding-bottom: 10px;
+		font-size: 18px;
+	}
+}
+.cart_footer div>a{
+	display: block;
+	float: left;
+	width: 18px;
+	height: 18px;
+	border:1px solid #B7C647;
+	border-radius: 15px;
+	margin: 5px 10px 0;
+}
+@media screen and (min-width: 414px){
+	.cart_footer div>a{
+		margin: 5px 20px 0;
+	}
+}
+.cart_shipay{
+	font-size: 18px;
+	padding-top:2px !important;
+}
+.cart_pay{
+	color: #EF9c24;
+	font-weight:bold;
+}
+.cart_payBtn{
+	display: block;
+	float: right;
+	width: 30%;
+	height: 65px;
+	background: #EF9c24;
+	color: #fff;
+	font-size: 20px;
+	font-weight: 600;
+	text-decoration: none;
+	line-height: 65px;
+	text-align: center;
+}
+@media screen and (min-width: 375px){
+	.cart_list li{
+		height: 100px;
+	}
+	.cart_choose{
+		margin: 35px 10px 0 15px;
+	}
+	.cart_chooseA{
+		margin: 35px 11px 0 16px;
+	}
+	.cart_listLeft img{
+		width: 70px;
+		margin-top: 10px;
+	}
+	.cart_listMiddle{
+		padding:0 10px 0 5px;
+	}
+}
+body {
+	font-size: 62.5%;
+	font-family: "Microsoft YaHei", serif;
+}

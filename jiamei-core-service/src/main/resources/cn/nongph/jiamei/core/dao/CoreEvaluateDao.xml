@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.nongph.jiamei.core.dao.CoreEvaluateDao">
+
+    <resultMap id="evaluateResultMap" type="cn.nongph.jiamei.core.domain.CoreEvaluate">
+        <id column="id" property="id"/>
+        <result column="rule" property="rule"/>
+        <result column="name" property="name"/>
+        <result column="result" property="result"/>
+        <result column="questionnaire_id" property="questionnaire.id"/>
+    </resultMap>
+
+    <select id="getEvaluateById" resultMap="evaluateResultMap">
+        select * from answer_evaluate where id=#{id}
+    </select>
+
+    <select id="getEvaluatesByQuestionnaire" resultMap="evaluateResultMap">
+        select * from answer_evaluate
+        where questionnaire_id=#{questionnaireId}
+    </select>
+
+    <insert id="createEvaluate" parameterType="cn.nongph.jiamei.core.domain.CoreEvaluate" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
+        insert into answer_evaluate(name, rule, result, questionnaire_id)
+        values( #{name}, #{rule}, #{result}, #{questionnaire.id} )
+    </insert>
+
+    <update id="updateEvaluate" parameterType="cn.nongph.jiamei.core.domain.CoreEvaluate">
+        update answer_evaluate
+        set name=#{name},
+            rule=#{rule},
+            result=#{result}
+        where id=#{id}
+    </update>
+        
+    <delete id="deleteEvaluate">
+    	delete from answer_evaluate where id=#{id}
+    </delete>
+    
+</mapper>

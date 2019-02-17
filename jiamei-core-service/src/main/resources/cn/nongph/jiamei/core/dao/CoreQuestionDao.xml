@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.nongph.jiamei.core.dao.CoreQuestionDao">
+
+    <resultMap id="questionResultMap" type="cn.nongph.jiamei.core.domain.CoreQuestion">
+        <id column="id" property="id"/>
+        <result column="type" property="type"/>
+        <result column="content" property="content"/>
+        <result column="sequence" property="sequence"/>
+        <result column="questionnaire_id" property="questionnaire.id"/>
+    </resultMap>
+
+    <resultMap id="optionResultMap" type="cn.nongph.jiamei.core.domain.CoreOption">
+        <id column="id" property="id"/>
+        <result column="content" property="content"/>
+        <result column="score" property="score"/>
+        <result column="sequence" property="sequence"/>
+        <result column="question_id" property="question.id"/>
+    </resultMap>
+
+    <select id="getQuestionById" resultMap="questionResultMap">
+        select * from question where id=#{id}
+    </select>
+
+    <select id="getQuestionsByQuestionnaire" resultMap="questionResultMap">
+        select * from question
+        where questionnaire_id=#{questionnaireId}
+        order by sequence
+    </select>
+
+    <insert id="createQuestion" parameterType="cn.nongph.jiamei.core.domain.CoreQuestion" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
+        insert into question(type, content, sequence, questionnaire_id)
+        values( #{type}, #{content}, #{sequence}, #{questionnaire.id} )
+    </insert>
+
+    <update id="updateQuestion" parameterType="cn.nongph.jiamei.core.domain.CoreQuestion">
+        update question
+        set type=#{type},
+            content=#{content},
+            sequence=#{sequence}
+        where id=#{id}
+    </update>
+    
+    <insert id="createOption" parameterType="cn.nongph.jiamei.core.domain.CoreOption" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
+        insert into `option`(question_id, content, score, sequence)
+        values( #{question.id}, #{content}, #{score}, #{sequence} )
+    </insert>
+    
+    <update id="updateOption" parameterType="cn.nongph.jiamei.core.domain.CoreOption">
+    	update `option` 
+    	set content = #{content},
+    	    score = #{score},
+    	    sequence = #{sequence}
+    	where id=#{id}
+    </update>
+    
+    <delete id="deleteOption">
+    	delete from `option` where id=#{optionId}
+    </delete>
+    
+    <select id="getOptionById" resultMap="optionResultMap">
+    	select * 
+    	from `option` 
+    	where id=#{optionId}
+    </select>
+    
+    <select id="getOptionsByQuestion" resultMap="optionResultMap">
+    	select * 
+    	from `option` 
+    	where question_id=#{questionId}
+    	order by sequence
+    </select>
+</mapper>

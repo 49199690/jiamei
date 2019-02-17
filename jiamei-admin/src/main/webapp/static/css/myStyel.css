@@ -1,0 +1,118 @@
+.top-margin{
+    margin-top: 10px
+}
+
+.top-margin-twenty{
+    margin-top: 20px
+}
+
+.zero-padding-left{
+    padding-left: 0px
+}
+
+.zero-padding-right{
+    padding-right: 0px
+}
+
+.first-title{
+    padding-left: 20px;
+}
+
+.second-title{
+    padding-left: 20px;
+}
+
+.second-title-info{
+    padding-left: 8px;
+}
+
+.hide-element{
+    display: none;
+}
+
+.text-align-left{
+    text-align: left;
+}
+
+.text-align-right{
+    text-align: right;
+}
+
+.font-size-thirteen{
+    font-size: 13px;
+}
+
+.a-line{
+    text-decoration: underline;
+}
+
+.ranking-style{
+    border-radius: 50px;
+    width:16px;
+    height:16px;
+    background-color: rgba(246, 24, 10, 0.70);
+    display: inline-block;
+    color: #ffffff;text-align: center;
+    margin-left: -30px;
+    z-index: 1;
+    position: relative
+}
+
+.bless-message-style{
+    margin-left:34px;
+    width:220px;
+    margin-top: -24px;
+    z-index: 1;
+    position: relative;
+    background-color: darkgray;
+    opacity: 0.7
+}
+
+.knideditor-style{
+    width:100%;
+    height: 200px
+}
+
+.my-col {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -moz-box-flex: 1;
+    -moz-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    display: block;
+    padding: 5px 0px;
+    width: 100%;
+}
+
+.processbar-style{
+    border-bottom: 1px solid #87ceeb;
+    border-top: 1px solid #87ceeb;
+    border-left: 0px;
+    border-right: 0px;
+    height: 0px
+}
+
+.light-border{
+    border-color: red;
+}
+
+.top-five{
+    margin-top: 5px;
+}
+
+.dot-style{
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #87ceeb;
+    margin-top: -4px
+}
+
+.light-dot{
+    background-color: red;
+}
+
+.sign-style{
+    margin-top: -300px;
+}

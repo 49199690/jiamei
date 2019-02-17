@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.nongph.jiamei.core.dao.CoreAnswerDao">
+
+    <resultMap id="answerResultMap" type="cn.nongph.jiamei.core.domain.CoreAnswer">
+    	<id column="id" property="id"/>
+    	<result column="start_time"  property="startTime"/>
+    	<result column="submit_time" property="submitTime"/>
+    	<result column="score"  property="score"/>
+    	<result column="from_type" property="fromType"/>
+    	<result column="from_id" property="fromId"/>
+    	<result column="user_id" property="user.id"/>
+    	<result column="questionnaire_id" property="questionnaire.id"/>
+    	<result column="evaluate_id" property="evaluate.id"/>
+    </resultMap>
+    
+    <resultMap id="questionAnswerResultMap" type="cn.nongph.jiamei.core.domain.CoreQuestionAnswer">
+    	<id column="id" property="id"/>
+    	<result column="questionnaire_answer_id" property="answer.id"/>
+    	<result column="question_id"             property="question.id"/>
+    	<result column="option_id"               property="choice.id"/>
+    </resultMap>
+    
+    <select id="getAnswerById" resultMap="answerResultMap">
+        select * from questionnaire_answer where id=#{id}
+    </select>
+	
+	<select id="getQuestionAnswerById" resultMap="questionAnswerResultMap">
+        select * from question_answer where id=#{questionAnswerId}
+    </select>
+    
+    <select id="getQuestionAnswersByAnswer" resultMap="questionAnswerResultMap">
+    	select qa.*
+    	from question_answer qa 
+    	     left join question q on qa.question_id=q.id
+    	where questionnaire_answer_id=#{id}
+    	order by q.sequence;
+    </select>
+    
+    <select id="findAnswers" resultMap="answerResultMap">
+    	select * from questionnaire_answer 
+    	<where>
+    		<if test="questionnaireId!=null">
+    			questionnaire_id = #{questionnaireId}
+    		</if>
+    	</where>
+    </select>
+    
+    <insert id="createAnswer" parameterType="cn.nongph.jiamei.core.domain.CoreAnswer" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
+    	insert into questionnaire_answer(start_time, submit_time, score, from_type, from_id, user_id, questionnaire_id, evaluate_id)
+    	values( #{startTime}, #{submitTime}, #{score}, #{fromType}, #{fromId}, #{user.id}, #{questionnaire.id}, #{evaluate.id} )
+    </insert>
+    
+    <insert id="createQuestionAnswer" parameterType="cn.nongph.jiamei.core.domain.CoreQuestionAnswer" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
+    	insert into question_answer(questionnaire_answer_id, question_id, option_id)
+    	values( #{answer.id}, #{question.id}, #{choice.id} )
+    </insert>
+    
+    <update id="updateEvaluate">
+    	update questionnaire_answer 
+    	set evaluate_id = #{evaluateId} 
+    	where id=#{id}
+    </update>
+</mapper>
