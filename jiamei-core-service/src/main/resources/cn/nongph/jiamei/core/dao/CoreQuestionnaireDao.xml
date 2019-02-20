@@ -8,6 +8,7 @@
 		<result column="create_time" property="createTime"/>
 		<result column="desc" property="desc"/>
     	<result column="state" property="state"/>
+    	<result column="next_version" property="nextVersion.id"/>
     </resultMap>
     
     <select id="getQuestionnaireById" resultMap="questionnaireResultMap">
@@ -39,6 +40,12 @@
     	update questionnaire 
     	set `state` = #{newState} 
     	where id=#{id} and `state` = #{beforeState} 
+    </update>
+    
+    <update id="setNextVersion">
+    	update questionnaire 
+    	set next_version = #{nextId}
+    	where id=#{id}
     </update>
     
     <select id="findQuestionnairesByStates" resultMap="questionnaireResultMap">

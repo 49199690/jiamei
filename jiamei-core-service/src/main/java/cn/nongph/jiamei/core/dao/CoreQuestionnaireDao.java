@@ -17,6 +17,8 @@ public interface CoreQuestionnaireDao {
 	
 	public void updateQuestionnaire(CoreQuestionnaire q);
 
+	public void setNextVersion(@Param("id")Long id, @Param("nextId")Long nextId);
+	
 	CoreQuestionnaire getQuestionnaireById(Long id);
 
 	PageList<CoreQuestionnaire> findQuestionnaires(PageBounds pageBounds, @Param("key")String key);

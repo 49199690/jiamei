@@ -43,9 +43,27 @@ public class CoreQuestionnaireService {
     			                            )>0;
     }
     
+    public boolean closeQuestionnaire(Long id) {
+    	return dao.changeQuestionnaireState( id, 
+    			                             CoreQuestionnaire.STATE.RELEASE.name(), 
+    			                             CoreQuestionnaire.STATE.CLOSED.name() 
+    			                            )>0;
+    }
+    
+    
     public List<CoreQuestionnaire> getUsableQuestionnaire(){
     	return dao.findQuestionnairesByStates( CoreQuestionnaire.STATE.RELEASE.name(),
     										   CoreQuestionnaire.STATE.LOCKED.name() );
+    }
+    
+    public List<CoreQuestionnaire> getUnclosedQuestionnaire(){
+    	return dao.findQuestionnairesByStates( CoreQuestionnaire.STATE.PREPARE.name(),
+    			                               CoreQuestionnaire.STATE.RELEASE.name(),
+				   							   CoreQuestionnaire.STATE.LOCKED.name() );
+    }
+    
+    public void setNextVersion(Long id, Long nextId) {
+    	dao.setNextVersion(id, nextId);
     }
     
     public static CoreQuestionnaireService instance;

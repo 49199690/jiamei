@@ -84,4 +84,52 @@ public class QuestionnaireController {
         	return UniversalResult.createErrorResult(1001);
         }
     }
+    
+    @RequestMapping(value="/close", method = RequestMethod.POST)
+    @ResponseBody
+    public UniversalResult close( HttpServletRequest request,
+    							  @RequestParam Long id ){
+        if( service.closeQuestionnaire(id) ) {
+        	return UniversalResult.createSuccessResult();
+        } else {
+        	return UniversalResult.createErrorResult(1001);
+        }
+    }
+    
+    @ResponseBody
+    @RequestMapping("/unclosed")
+    public UniversalResult getUnclosed() {
+    	return UniversalResult.createSuccessResult( service.getUnclosedQuestionnaire().stream().map( q->{
+    		QuestionnaireVO vo = new QuestionnaireVO();
+    		vo.setId( q.getId() );
+    		vo.setName( q.getName() );
+    		return vo;
+    	} ).toArray() );
+    }
+    
+    @RequestMapping(value="/next", method = RequestMethod.POST)
+    @ResponseBody
+    public UniversalResult next( HttpServletRequest request,
+    							 @RequestParam Long id,
+    							 @RequestParam Long nextId){
+    	service.setNextVersion(id, nextId);
+        return UniversalResult.createSuccessResult();
+    }
+    
+    public static class QuestionnaireVO{
+    	private Long id;
+    	private String name;
+		public Long getId() {
+			return id;
+		}
+		public void setId(Long id) {
+			this.id = id;
+		}
+		public String getName() {
+			return name;
+		}
+		public void setName(String name) {
+			this.name = name;
+		}
+    }
 }

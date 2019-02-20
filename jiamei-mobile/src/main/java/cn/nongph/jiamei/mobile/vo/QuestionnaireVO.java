@@ -8,6 +8,8 @@ public class QuestionnaireVO extends QuestionnaireBaseVO{
 	
 	private String desc;
 	
+	private Long next;
+	
 	private List<QuestionVO> questions = new ArrayList<QuestionVO>();
 	
 	public String getState() {
@@ -24,6 +26,14 @@ public class QuestionnaireVO extends QuestionnaireBaseVO{
 
 	public void setDesc(String desc) {
 		this.desc = desc;
+	}
+	
+	public Long getNext() {
+		return next;
+	}
+
+	public void setNext(Long next) {
+		this.next = next;
 	}
 
 	public List<QuestionVO> getQuestions() {

@@ -35,6 +35,7 @@
                                 <th>创建时间</th>
                                 <th>名称</th>
                                 <th>状态</th>
+                                <th>下一版本</th>
                                 <th></th>
                             </tr>
                             </thead>
@@ -45,12 +46,22 @@
                                     <td>${q.name}</td>
                                     <td>${ {"PREPARE":"准备中",
                                             "RELEASE":"已发布",
-                                            "LOCKED" :"已填写"}[q.state] }</td>
+                                            "LOCKED" :"已填写",
+                                            "CLOSED" :"已关闭"}[q.state] }</td>
+                                    <td>${q.nextVersion.name}</td>
                                     <td>
                                         <a href="${ctx}/mvc/questionnaire/modify?id=${q.id}">修改</a>
                                         <c:if test="${q.state=='PREPARE'}">
                                         &nbsp;&nbsp;
                                         <a href="javascript:release(${q.id},'${q.name}')">发布</a>
+                                        </c:if>
+                                        <c:if test="${q.state=='RELEASE'}">
+                                        &nbsp;&nbsp;
+                                        <a href="javascript:close(${q.id},'${q.name}')">关闭</a>
+                                        </c:if>
+                                        <c:if test="${q.state=='CLOSED'}">
+                                        &nbsp;&nbsp;
+                                        <a href="javascript:nextVersion(${q.id})">下个版本</a>
                                         </c:if>
                                         &nbsp;&nbsp;
                                         <a href="${ctx}/mvc/question/manage?questionnaireId=${q.id}">题目</a>
@@ -69,8 +80,31 @@
             </div>
         </section>
     </section>
-    <a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen,open" data-target="#nav,html"></a>
 </section>
+<div class="modal fade" id="selectQuestionnaire" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">选择下个版本问卷</h4>
+			</div>
+			<div class="modal-body panel-body">
+				<form id="selectQuestionnaireForm" class="form-horizontal">
+	                <input type="hidden" id="qnId"/>
+					<div class="form-group">
+	                     <label class="col-sm-3 control-label"><span class="text-danger">*</span>下个版本：</label>
+	                     <div class="col-sm-9">
+	                     	 <select name="type" class="form-control" id="nextId" required></select>
+	                     </div>
+	                </div>
+                </form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" onclick="selectQuestionnaireAction();">确认</button>
+			</div>
+		</div>
+	</div>
+</div>
 </body>
 <footer>
     <%@include file="layout/footer.jsp" %>
@@ -98,6 +132,64 @@
     	    		
     	    	},"json");
     	    }
+        }
+        
+        function close(id, name){
+        	if(confirm("一旦关闭，需要设置其下一版本，否则发行的二维码将无法使用。\n确认关闭【"+name+"】吗？")){
+    	    	showLoading();
+    	    	$.post( "${ctx}/mvc/questionnaire/close", {id:id}, function(data){
+    	    		if( data.head.state=='success') {
+    	    			resubmitSearch(1);
+    	    		} else {
+    	    			closeLoading();
+    	    			if(data.head.code==0){
+    	    				location.href="${ctx}/page/login.jsp";
+    	    			} else if( data.head.code==500 ){
+    	    				alert( "操作失败，系统内部错误！"  + data.body);
+    	    			} else if( data.head.code==1001 ){
+    	    				alert( "操作失败，请求状态错误！");
+    	    			} 
+    	    		}
+    	    		
+    	    	},"json");
+    	    }
+        }
+        
+        function nextVersion(id){
+       		$.getJSON( "${ctx}/mvc/questionnaire/unclosed", 
+  		    	function(data) { 
+  					if( data.body.length>0 ) {
+  						$("#qnId").val(id);	
+  						$("#nextId").empty();
+      					data.body.forEach( o=>$("#nextId").append('<option value="'+o.id+'">'+o.name+'</option>') );
+      					$('#selectQuestionnaire').modal('toggle');
+  					} else {
+  						alert( "没有未关闭的问卷供选择！请先创建问卷！");
+  					}
+  		    	}
+  		    ); 
+        }
+        
+        function selectQuestionnaireAction(){
+        	if( $('#selectQuestionnaireForm')[0].reportValidity() ){
+    			var formDate = {
+    				id   :$("#qnId").val(),
+    				nextId :$("#nextId").val()
+    			};
+    			showLoading();
+    			$.post( "${ctx}/mvc/questionnaire/next", formDate, function(data){
+    	    		if( data.head.state=='success') {
+    	    			resubmitSearch(1);
+    	    		} else {
+    	    			closeLoading();
+    	    			if(data.head.code==0){
+    	    				location.href="${ctx}/page/login.jsp";
+    	    			} else if( data.head.code==500 ){
+    	    				alert( "操作失败，系统内部错误！"  + data.body);
+    	    			}
+    	    		}
+    	    	},"json");
+    		}	 
         }
     </script>
 </footer>

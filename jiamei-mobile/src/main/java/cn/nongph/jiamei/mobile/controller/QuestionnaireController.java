@@ -75,6 +75,8 @@ public class QuestionnaireController {
 		vo.setName( qn.getName() );
 		vo.setDesc( qn.getDesc() );
 		vo.setState( qn.getState() );
+		if( qn.getNextVersion()!=null )
+			vo.setNext( qn.getNextVersion().getId() );
 		
 		qn.getQuestions().forEach( q->{
 			QuestionVO qvo = new QuestionVO();

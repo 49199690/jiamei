@@ -11,7 +11,7 @@ import cn.nongph.jiamei.core.service.CoreQuestionnaireService;
 public class CoreQuestionnaire extends BasicDomain {
 
 	public static enum STATE{
-		PREPARE, RELEASE, LOCKED
+		PREPARE, RELEASE, LOCKED, CLOSED
 	}
 
 	private Long id;
@@ -25,6 +25,8 @@ public class CoreQuestionnaire extends BasicDomain {
 	private List<CoreQuestion> questions;
 	
 	private List<CoreEvaluate> evaluates;
+	
+	private CoreQuestionnaire nextVersion;
 	
 	public CoreQuestionnaire() {
 	}
@@ -83,6 +85,14 @@ public class CoreQuestionnaire extends BasicDomain {
 
 	public void setEvaluates(List<CoreEvaluate> evaluates) {
 		this.evaluates = evaluates;
+	}
+
+	public CoreQuestionnaire getNextVersion() {
+		return nextVersion;
+	}
+
+	public void setNextVersion(CoreQuestionnaire nextVersion) {
+		this.nextVersion = nextVersion;
 	}
 
 	@Override

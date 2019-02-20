@@ -13,27 +13,35 @@ $(function() {
 	if( nph.isLogined() ){
 		$.getJSON("/mvc/close/questionnaire/"+qid, function(data){
 			if( data.head.state=='success'){
-				$("#questionnaireTitle").html( data.body.name );
-				$("#desc").html( data.body.desc );
-				question_totol = data.body.questions.length;
-				data.body.questions.forEach(q=>{
-					let question = '<div class="detail">'+
-					                   '<div class="question">'+q.sequence+'.&nbsp;'+q.content+'</div><div>'
-					q.options.forEach(o=>{
-						question += '<div class="option">'+
-	        							'<input type="radio" name="question-'+q.id+'" data-question="'+q.id+'" value="'+o.id+'">&nbsp;'+o.sequence+'.&nbsp;'+o.content+
-	        		                '</div>';
-					})
-					question+='</div></div>';
-					
-					$("#questions").append(question);
-				});
-				freshRemaining();
-				$(":radio").click(freshRemaining);
+				if( data.body.state=='CLOSED' ){
+					if( data.body.next ){
+						location.href="questionnaire.html?id="+data.body.next;
+					} else {
+						nph.showMessage("该问卷已关闭！");
+					}
+				} else {
+					$("#questionnaireTitle").html( data.body.name );
+					$("#desc").html( data.body.desc );
+					question_totol = data.body.questions.length;
+					data.body.questions.forEach(q=>{
+						let question = '<div class="detail">'+
+						                   '<div class="question">'+q.sequence+'.&nbsp;'+q.content+'</div><div>'
+						q.options.forEach(o=>{
+							question += '<div class="option">'+
+		        							'<input type="radio" name="question-'+q.id+'" data-question="'+q.id+'" value="'+o.id+'">&nbsp;'+o.sequence+'.&nbsp;'+o.content+
+		        		                '</div>';
+						})
+						question+='</div></div>';
+						
+						$("#questions").append(question);
+					});
+					freshRemaining();
+					$(":radio").click(freshRemaining);
+				}
 			}
 		});
 	} else {
-		location.href="login.html?from="+encodeURIComponent("questionnaire.html"+window.location.search);;
+		location.href="login.html?from="+encodeURIComponent("questionnaire.html"+window.location.search);
 	}
 	
 	$("#summitQuestionnaire").click(function(){
