@@ -1,7 +1,10 @@
 package cn.nongph.jiamei.admin.controller;
 
 import cn.nongph.jiamei.core.domain.CoreQuestionnaire;
+import cn.nongph.jiamei.core.service.CoreEvaluateService;
+import cn.nongph.jiamei.core.service.CoreQuestionService;
 import cn.nongph.jiamei.core.service.CoreQuestionnaireService;
+import cn.nongph.jiamei.core.utils.DateUtils;
 import cn.nongph.jiamei.core.vo.UniversalResult;
 
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
@@ -23,7 +26,13 @@ public class QuestionnaireController {
 
     @Resource
     private CoreQuestionnaireService service;
-
+    
+    @Resource
+    private CoreQuestionService questionService;
+    
+    @Resource
+	private CoreEvaluateService evaluateService;
+    
     @RequestMapping("/manage")
     public String manage(HttpServletRequest request,
                          @RequestParam(required = false, defaultValue = "1") int page,
@@ -72,6 +81,40 @@ public class QuestionnaireController {
         service.updateQuestionnaire(q);
 
         return "redirect:/mvc/questionnaire/manage";
+    }
+    
+    @RequestMapping(value="/copy", method = RequestMethod.POST)
+    @ResponseBody
+    public UniversalResult copy(@RequestParam Long id) {
+    	CoreQuestionnaire qn = service.getQuestionnaireById(id);
+    	qn.getQuestions().forEach( q -> q.getOptions() );
+    	qn.getEvaluates();
+    	
+    	qn.setId( null );
+    	qn.setName( qn.getName() + "-" + DateUtils.formateDateTime( new Date() ));
+    	qn.setState( CoreQuestionnaire.STATE.PREPARE.name() );
+        qn.setCreateTime( new Date() );
+        service.createQuestionnaire( qn );
+        
+        qn.getQuestions().forEach( q->{
+        	q.setId( null );
+        	q.setQuestionnaire( qn );
+        	q.getOptions().forEach( o->{
+        		o.setId( id );
+        		o.setQuestion( null );
+        	});
+        	
+        	questionService.createQuestion( q );
+        });
+        
+        qn.getEvaluates().forEach( e->{
+        	e.setId( null );
+        	e.setQuestionnaire( qn );
+        	
+        	evaluateService.createEvaluate( e );
+        });
+        
+        return UniversalResult.createSuccessResult();
     }
     
     @RequestMapping(value="/release", method = RequestMethod.POST)

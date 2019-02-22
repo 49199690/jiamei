@@ -51,6 +51,8 @@
                                     <td>${q.nextVersion.name}</td>
                                     <td>
                                         <a href="${ctx}/mvc/questionnaire/modify?id=${q.id}">修改</a>
+                                        &nbsp;&nbsp;
+                                        <a href="javascript:copy(${q.id},'${q.name}')">复制</a>
                                         <c:if test="${q.state=='PREPARE'}">
                                         &nbsp;&nbsp;
                                         <a href="javascript:release(${q.id},'${q.name}')">发布</a>
@@ -111,6 +113,27 @@
     <script type="text/javascript">
         function resubmitSearch(page){
             location.href = "${ctx}/mvc/questionnaire/manage?name=${param['name']}&page=" + page;
+        }
+        
+        function copy(id, name){
+        	if(confirm("一旦复制，将无法删除。\n确认复制【"+name+"】吗？")){
+    	    	showLoading();
+    	    	$.post( "${ctx}/mvc/questionnaire/copy", {id:id}, function(data){
+    	    		if( data.head.state=='success') {
+    	    			resubmitSearch(1);
+    	    		} else {
+    	    			closeLoading();
+    	    			if(data.head.code==0){
+    	    				location.href="${ctx}/page/login.jsp";
+    	    			} else if( data.head.code==500 ){
+    	    				alert( "操作失败，系统内部错误！"  + data.body);
+    	    			} else {
+    	    				alert( "操作失败！");
+    	    			} 
+    	    		}
+    	    		
+    	    	},"json");
+    	    }
         }
         
         function release(id, name){
