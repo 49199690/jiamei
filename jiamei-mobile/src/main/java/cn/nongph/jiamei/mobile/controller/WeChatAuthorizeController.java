@@ -88,13 +88,13 @@ public class WeChatAuthorizeController {
         CookieUtil.setCookie(resp, req.getServerName(), "wid", openid, 30*24*60*60);
         CookieUtil.setCookie(resp, req.getServerName(), "wnm", nickname, 30*24*60*60);
         
-        String pid = CookieUtil.getCookie( req, "pid" );
+        String pid = CookieUtil.getCookie( req, "jmpid" );
         if( StringUtils.isNotEmpty(pid) ) {
         	CoreUser user = userService.getUserByPid(pid);
         	if( user!=null ) {
         		modifyWechatBind( user, openid, nickname );
         	} else {
-        		CookieUtil.delCookie(resp, req.getServerName(), "pid");
+        		CookieUtil.delCookie(resp, req.getServerName(), "jmpid");
         	}
         }
         return "redirect:" + (StringUtils.isNotEmpty(au) ? au : "/");

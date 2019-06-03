@@ -51,7 +51,7 @@ public class LoginFilter implements Filter{
 		if( isExcludedURI( req ) ) {
 			chain.doFilter(request, response);
 		} else {
-			String pid =   CookieUtil.getCookie(req, "pid");
+			String pid =   CookieUtil.getCookie(req, "jmpid");
 			String phone = req.getHeader( "phone");
 			CoreUser u = null;
 			if( StringUtils.isNotBlank( pid ) ) 

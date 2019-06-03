@@ -59,7 +59,7 @@ public class UserController {
 		
 		CoreUser user = findOrCreateUser(phone1, aid);
 		user.setPid( Digests.md5HexWithSalt( user.getPhone(), String.valueOf(System.currentTimeMillis())) );
-		CookieUtil.setCookie(rsp, null, "pid", user.getPid(), PID_EXPIRE);
+		CookieUtil.setCookie(rsp, null, "jmpid", user.getPid(), PID_EXPIRE);
 		
 		String wid = CookieUtil.getCookie(request, "wid");
 		if( StringUtils.isNotEmpty(wid) ) {
@@ -106,7 +106,7 @@ public class UserController {
 	public UniversalResult checkLoginState(HttpServletRequest request, HttpServletResponse rsp){
 		boolean logined = false;
 		
-		String pid = CookieUtil.getCookie(request, "pid");
+		String pid = CookieUtil.getCookie(request, "jmpid");
 		if( StringUtils.isNotEmpty( pid ) ) {
 			CoreUser cu = userServcie.getUserByPid( pid );
 			if( cu!=null ) {
@@ -120,14 +120,14 @@ public class UserController {
 				CoreUser cu = userServcie.getUserByWid(wid);
 				if( cu!=null ) {
 					logined=true;
-					CookieUtil.setCookie(rsp, null, "pid", cu.getPid(), PID_EXPIRE);
+					CookieUtil.setCookie(rsp, null, "jmpid", cu.getPid(), PID_EXPIRE);
 				}
 			}
 		}
 		
 		if( !logined && StringUtils.isNotEmpty( pid )) {
 			//pid非法，或者过期
-			CookieUtil.delCookie(rsp, null, "pid");
+			CookieUtil.delCookie(rsp, null, "jmpid");
 		}
 		
 		if( logined ) {
